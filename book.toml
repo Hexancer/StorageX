@@ -1,0 +1,18 @@
+[book]
+authors = ["100781565"]
+language = "en"
+multilingual = false
+src = "src"
+title = "StorageX"
+
+[output.html]
+default-theme = "rust"
+preferred-dark-theme = "navy"
+no-section-label = true
+git-repository-rul = ""
+git-repository-icon = "fa-github"
+
+[output.html.print]
+enable = true
+page-break = true
+
