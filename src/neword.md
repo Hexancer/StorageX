@@ -5,4 +5,5 @@
 #### dedicated 专注的，献身的
 #### degrade （使）降级，退化
 #### induce 引诱，招致，归纳出
-####  
+#### alternate 轮流，替补
+#### 
