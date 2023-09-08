@@ -5,3 +5,4 @@
 [GaneshaTest](./192.md)
 [NewWord](./neword.md)
 [Novel Webs](./interestingwebs.md)
+[Others](./others.md)
