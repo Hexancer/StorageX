@@ -10,12 +10,13 @@
     - [ElasticBF](./rsc/ElasticBF.md)
 
 # Others
+- [Others](./others/README.md)    
+    - [Research Method](./others/howresearch.md)
+    - [Novel Webs](./others/interestingwebs.md)
+    - [GaneshaTest](./others/192.md)
+    - [NewWord](./others/neword.md)
+    - [pwrite&write](./others/pwrite.md)
 
-- [Research Method](./others/howresearch.md)
-- [Novel Webs](./others/interestingwebs.md)
-- [GaneshaTest](./others/192.md)
-- [NewWord](./others/neword.md)
-- [Others](./others.md)
 
 
 -----------
