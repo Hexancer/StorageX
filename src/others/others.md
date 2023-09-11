@@ -53,3 +53,13 @@ lseek + write, pwrite 类似
 
 ---
 
+#### 2. cacheline padding/cacheline alignment
+In the context of struct in programming, cacheline padding is a technique used to add additional padding bytes or dummy variables to a struct to align its size with the cacheline size.
+##### Reasons
+- Preventing false sharing
+False sharing occurs when two or more variables that are frequently accessed by different threads or CPU cores are located in the same cache line. When one thread modifies a variable, it may invalidate the cache line and force other threads to reload the entire cache line, even if they are only accessing a different variable within the same cache line.
+> 一言以蔽之，结构中常用的变量独占一个cache行
+
+
+This technique should be use wisely and only if necessary, too much padding to a struct waste memory and negatively impact cache efficiency.
+
