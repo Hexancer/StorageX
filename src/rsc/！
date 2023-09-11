@@ -1,0 +1,10 @@
+# Wisckey
+WiscKey: Separating Keys from Values in SSD-conscious Storage
+
+wisckey是一种基于LSM树的持久键值存储，基于LevelDB，论文的核心思路是将Key和Value分开以减少I/O放大。同时充分利用了SSD 的顺序和随机访问特征。
+
+LSM树比起其他index structures（比如B树）的优点是LSM树维护写入的顺序访问模式，B树上的small updates可能涉及到很多随机写入，因此在传统的HDD或者现有的SSD上效率都不是很高。
+
+1.SSD上的随机性能和顺序性能的差异并不像HDD那么大，因此执行大量顺序I/O以减少后续随机I/O的LSM树可能会不必要地浪费带宽。
+2.SSD的内部并行度很高，SSD上的LSM必须精心设计才能利用这种并行性。
+3.SSD可能会因为重复写入而导致磨损，而LSM树中的写放大会显著缩短SSD的寿命。

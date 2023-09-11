@@ -6,4 +6,5 @@
 #### degrade （使）降级，退化
 #### induce 引诱，招致，归纳出
 #### alternate 轮流，替补
-#### 
+#### heterogeneous 各种各样的，混杂的 非均匀的[计]
+#### skewness 偏度
