@@ -6,7 +6,7 @@
 - [K/V Papers](./rsc/README.md)
     - [Wisckey](./rsc/Wisckey.md)
     - [DiffKV](./rsc/DiffKV.md)
-
+    - [ElasticBF](./rsc/ElasticBF.md)
 
 # Others
 
