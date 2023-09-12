@@ -16,6 +16,7 @@
     - [GaneshaTest](./others/192.md)
     - [NewWord](./others/neword.md)
     - [pwrite&write](./others/pwrite.md)
+    - [trivia](./others/trivia.md)
 
 
 
