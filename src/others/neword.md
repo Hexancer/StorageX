@@ -8,3 +8,7 @@
 #### alternate 轮流，替补
 #### heterogeneous 各种各样的，混杂的 非均匀的[计]
 #### skewness 偏度
+#### orthogonal 正交
+#### reside 住，居住，驻留
+#### validate 证明，证实
+
