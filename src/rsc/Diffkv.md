@@ -16,7 +16,7 @@ Key-value storage three main operations
 
 Efficiency of sequential I/Os && Data ordering for fast scans ---> ***Log-Structured-Merge-tree***， but suffer from high write and read amplifications.
 
-<img src="./images/image-diffkv/conventional-LSM-tree.png" alt="LSM-tree" width="250"/>
+![](./images/image-diffkv)
 
 Simple discription of LSM-tree storage structure
 
@@ -88,7 +88,7 @@ DiffKV （区分的KV管理，既蕴含Key和Value的分离管理有序程度，
 
 Two main ideas:
 
-- Carefully coordinate the differentiated management of the ordering for keys and values. 
+- **Carefully coordinate the differentiated management of the ordering for keys and values.** 
   
   - LSM-tree for \<key, v_loc\>, fully sorted
   
@@ -96,4 +96,75 @@ Two main ideas:
     
     *Sorting of valuees in the vTree is triggered by the compaction of the LSM-tree.*
 
-- Fine-grained KV separation, maintaining balanced performance under mixed workloads(KV pairs of different size groups)
+- **Fine-grained KV separation**, maintaining balanced performance under mixed workloads (KV pairs of different size groups)
+
+<img src="./images/image-diffkv/diffkv-system-overview.png" alt="DiffKV System Overview" width="250">
+
+#### Features
+
+**vTable**, DiffKV organizes values as fixed size vTables. composed of:
+
+- *data area*, values of KV pairs in a sorted order based on their keys
+
+- *metadata area*, e.g. data size of vTable / smallest and largest keys of the values
+
+**Sorted group**, a collection of vTables. The key ranges of any two vTables in a sorted group have no overlaps. In DiffKV, all vTables generated in one flush form a sorted group, use the number of sorted groups is an indicator of the degree of ordering in the vTree.（以vTree中有序组的个数来指示有序程度）
+
+**vTree**
+
+```
+|                    vL0                    ]
+|[***sg1]..[***sg8]  vL1     -- level       ] 
+...                                         ] vtree
+|                    vLn                    ]
+
+
+// vtree consists of levels 
+   level consists of sorted groups (not necessarily sorted)
+   sorted group consists of vTables
+   vTable consist of values
+```
+
+*Merge* operations are used to keep partially-sorted ordering for  values which was triggered by compaction operations in the LSM-tree in a coordinated manner. --- ***compaction-triggered merge***
+
+Two benefits from ctm:
+
+- efficient to identify valid values; 
+
+- reduce overhead needed to maintain the latest value locations.
+
+##### Further Merge Optimizations
+
+每个compaction一个merge，太多了。
+
+1. Lazy merge, 将*vL*<sub>0</sub>,...,*vL*<sub>n-2</sub>视作a single level，任何来自*L*<sub>0</sub>,...,*L*<sub>n-2</sub>的压缩不会引发归并，除非值需要归并到v*L*<sub>n-1</sub>.
+
+<img src="./images/lazy-merge.png" alt="Lazy merge" width="200">
+
+2. Scan-optimized merge
+   
+   找出与许多其他vtables有重叠键范围的vtable，使之参与合并过程，增加vTree中值的有序度。
+
+##### 垃圾回收
+
+回收无效值所占用的空间（在LSM-tree中，通过压缩回收无效值）
+
+小优化：state awareness, Lazy GC 降低垃圾回收开销
+
+#### 细粒度的KV分离
+
+<img src="./images/image-diffkv/fine-grained-kv-separation"
+
+根据值的大小分为large, medium, small
+
+- large KV pairs, 采用hotness-aware multi-log（v*Logs*）
+
+- medium, values in vTree, \<key, v_loc\> in LSM-tree
+
+- small, no KV separation, all in LSM-tree
+
+vLog: 被设计成一个简单的循环append-only log，它由一组未排序的vtable组成。
+
+热感知 vLogs: Hot vLog (Write head), Cold vLog(GC head)
+
+<img src="./images/image-diffkv/gc-vlogs" alt="gc-vlogs" width="250">
