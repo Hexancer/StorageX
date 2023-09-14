@@ -1,6 +1,6 @@
 ## Differentiated Key-Value Storage Management for Balanced I/O Performance
 
-*version-0.2*
+*version-1.0*
 
 > DiffKV, a novel LSM-tree KV store that aims for balanced performance in writes, reads, and scans.
 
@@ -16,7 +16,7 @@ Key-value storage three main operations
 
 Efficiency of sequential I/Os && Data ordering for fast scans ---> ***Log-Structured-Merge-tree***， but suffer from high write and read amplifications.
 
-![](./images/image-diffkv)
+<img src="./images/image-diffkv/conventional-LSM-tree.png" alt="LSM-tree" width="300">
 
 Simple discription of LSM-tree storage structure
 
@@ -98,7 +98,7 @@ Two main ideas:
 
 - **Fine-grained KV separation**, maintaining balanced performance under mixed workloads (KV pairs of different size groups)
 
-<img src="./images/image-diffkv/diffkv-system-overview.png" alt="DiffKV System Overview" width="250">
+<img src="./images/image-diffkv/diffkv-system-overview.png" alt="DiffKV System Overview" width="300">
 
 #### Features
 
@@ -139,7 +139,7 @@ Two benefits from ctm:
 
 1. Lazy merge, 将*vL*<sub>0</sub>,...,*vL*<sub>n-2</sub>视作a single level，任何来自*L*<sub>0</sub>,...,*L*<sub>n-2</sub>的压缩不会引发归并，除非值需要归并到v*L*<sub>n-1</sub>.
 
-<img src="./images/lazy-merge.png" alt="Lazy merge" width="200">
+<img src="./images/lazy-merge.png" alt="Lazy merge" width="300">
 
 2. Scan-optimized merge
    
@@ -153,7 +153,7 @@ Two benefits from ctm:
 
 #### 细粒度的KV分离
 
-<img src="./images/image-diffkv/fine-grained-kv-separation"
+<img src="./images/image-diffkv/fine-grained-kv-separation.png" alt="Fine grained KV separation" width="300">
 
 根据值的大小分为large, medium, small
 
@@ -167,4 +167,4 @@ vLog: 被设计成一个简单的循环append-only log，它由一组未排序�
 
 热感知 vLogs: Hot vLog (Write head), Cold vLog(GC head)
 
-<img src="./images/image-diffkv/gc-vlogs" alt="gc-vlogs" width="250">
+<img src="./images/image-diffkv/gc-vlogs" alt="gc-vlogs" width="300">
