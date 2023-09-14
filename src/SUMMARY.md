@@ -6,7 +6,7 @@
 # Research
 - [K/V Papers](./rsc/README.md)
     - [Wisckey](./rsc/Wisckey.md)
-    - [DiffKV](./rsc/DiffKV.md)
+    - [DiffKV](./rsc/Diffkv.md)
     - [ElasticBF](./rsc/ElasticBF.md)
 
 # Others
