@@ -1,10 +1,10 @@
-### Differentiated Key-Value Storage Management for Balanced I/O Performance
+## Differentiated Key-Value Storage Management for Balanced I/O Performance
 
 *version-0.2*
 
 > DiffKV, a novel LSM-tree KV store that aims for balanced performance in writes, reads, and scans.
 
-#### Intro
+### Intro
 
 Key-value storage three main operations
 
@@ -30,7 +30,7 @@ Simple discription of LSM-tree storage structure
   
   （在L<sub>1</sub>至L<sub>n</sub>的每一层中KV对都是按键全排序的；L<sub>0</sub>不保证SSTable之间的顺序, 但每个SSTable内部仍是有序的）
 
-##### Write process
+#### Write process
 
 ```
 KV pair ---> MemTable --full-> Immutable MemTable    (in-memory)
@@ -50,11 +50,11 @@ How to compact a SSTable *S* in *L*<sub>i</sub> into *L*<sub>i+1</sub>?
 
 The KV store reads *S* and all SSTables in *L*<sub>i+1</sub> that have overlapped key ranges with S, then sorts all  KV pairs by keys and creates new SSTables, then writes back into *L*<sub>i+1</sub>.
 
-##### Read process
+#### Read process
 
 First, search in memory, not hit, then performs binary search in each level of the LSM-tree, from *L*<sub>0</sub> to *L*<sub>n</sub>. 在每一层，使用Bloom filter 查看是否存在该KV pair.
 
-#### Motivation
+### Motivation
 
 Two directions of LSM-tree optimization
 
@@ -82,7 +82,7 @@ Two directions of LSM-tree optimization
 
 2. 针对不同大小的KV对的管理（KV pair: ..., large, medium, small, ...）
 
-#### Methodology
+### Methodology
 
 DiffKV （区分的KV管理，既蕴含Key和Value的分离管理有序程度，又包含针对不同大小KV对的管理）
 
