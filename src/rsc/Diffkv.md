@@ -139,7 +139,7 @@ Two benefits from ctm:
 
 1. Lazy merge, 将*vL*<sub>0</sub>,...,*vL*<sub>n-2</sub>视作a single level，任何来自*L*<sub>0</sub>,...,*L*<sub>n-2</sub>的压缩不会引发归并，除非值需要归并到v*L*<sub>n-1</sub>.
 
-<img src="./images/lazy-merge.png" alt="Lazy merge" width="300">
+<img src="./images/image-diffkv/lazy-merge.png" alt="Lazy merge" width="300">
 
 2. Scan-optimized merge
    
