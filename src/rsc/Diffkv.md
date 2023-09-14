@@ -16,7 +16,7 @@ Key-value storage three main operations
 
 Efficiency of sequential I/Os && Data ordering for fast scans ---> ***Log-Structured-Merge-tree***， but suffer from high write and read amplifications.
 
-![LSM-tree](./images/image-diffkv.png)
+![LSM-tree](./images/conventional-LSM-tree.png)
 
 Simple discription of LSM-tree storage structure
 
