@@ -1,6 +1,5 @@
 ## Differentiated Key-Value Storage Management for Balanced I/O Performance
 
-*version-1.0*
 
 > DiffKV, a novel LSM-tree KV store that aims for balanced performance in writes, reads, and scans.
 
@@ -74,7 +73,7 @@ Two directions of LSM-tree optimization
   
   将*L*<sub>i</sub>层中的一个组中的SSTables压缩至*L*<sub>i+1</sub>, 仅读取相应组中的SSTables，排序并存至*L*<sub>i+1</sub>,
 
-  不需读取*L*<sub>i+1</sub>层的内容. 大大减轻了compaction overhead.
+  不需读取*L*<sub>i+1</sub>层的与之有重叠的内容. 大大减轻了compaction overhead.
   
   However, Sacrificing scan performance. (针对不同groups并行发射读—更多CPU资源消耗、有限提升)
 
@@ -151,7 +150,7 @@ Two benefits from ctm:
 
 - reduce overhead needed to maintain the latest value locations.
 
-##### Further Merge Optimizations
+**Further Merge Optimizations**
 
 每个compaction一个merge，太多了。
 
@@ -165,7 +164,7 @@ Two benefits from ctm:
    
    找出与许多其他vtables有重叠键范围的vtable，使之参与合并过程，增加vTree中值的有序度。
 
-##### 垃圾回收
+**垃圾回收**
 
 回收无效值所占用的空间（在LSM-tree中，通过压缩回收无效值）
 
