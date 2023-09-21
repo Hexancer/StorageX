@@ -5,6 +5,8 @@
 ## Why K/V?
 With the exponential growth of data volume,traditional relational database meets challenges in scalability in dealing with extremely large-scale data.
 
+Key-value stores have become a fundamental part of the infrastructure for modern systems. Much like how file systems are an integral part of operating systems, distributed systems today depend on key-value stores for storage.
+
 数据呈指数增长，非结构化半结构化数据占数据总量80%以上。传统的存储系统面临挑战，传统文件系统需要对海量小文件进行目录树管理，其扩展性和元数据管理成为性能瓶颈。传统的关系型数据库适用于结构化数据，采用表格结构来存储和管理数据，难以水平扩展。
 其他的存储模型主要有列式存储，文档存储，图存储和键值存储几类。其中键值存储满足现代数据特征的需求:
 * 数据类型灵活<--数据类型繁多
@@ -43,6 +45,8 @@ One resides in memory to cache KV pairs, and it includes a MemTable and an Immut
 
 Each SSTable contains a set of sorted KV pairs and necessary metadata.When a level reachese its size limit its SSTables will be compacted into the next levle via compaction, which first reads out the SSTables in the two levels, then performs a merge sort, and finally writes back the new SSTables into the next level.
 **(This is the reason that compaction induces severe write amplification.)**
+
+(Write amplification is the ratio of total write IO performed by the store to the total user data.)
 
 When we lookup a KV pair,KV store needs to check multiple SSTables from the lowest level to the highest level until the key is found or all level have been checked.**(This ie the reason that LSM-tree based KV store suffer from read amplication)**
 
